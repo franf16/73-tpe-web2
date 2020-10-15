@@ -1,0 +1,1 @@
+{assign var='elementKeys' value=[ 'username', 'email' ] scope=parent}

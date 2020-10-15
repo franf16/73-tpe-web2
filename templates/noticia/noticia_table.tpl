@@ -1,0 +1,1 @@
+{assign var='elementKeys' value=[ 'fecha', 'titulo', 'seccion', 'visualizaciones' ] scope=parent}
