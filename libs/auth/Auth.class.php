@@ -1,6 +1,6 @@
 <?php
 
-require_once 'libs/redirector/Redirector.class.php';
+require_once './libs/functions/redirect.function.php';
 
 /** Helper para manejar sesiones de PHP */
 class Auth {
@@ -13,17 +13,17 @@ class Auth {
         self::startSession();
         $_SESSION[ 'user' ] = $user;
         $_SESSION[ 'last_access' ] = time();
-        Redirector::redirect(ADMIN);
+        redirect(ADMIN);
     }
     
     public static function logout(): void {
         self::startSession();
         session_destroy();
-        Redirector::redirect(HOME);
+        redirect(HOME);
     }
 
     public static function checkLogin(): void {
-        if (!self::isLoggedIn()) Redirector::redirect(LOGIN, '?redirect=' . THIS_URL);
+        if (!self::isLoggedIn()) redirect(LOGIN, '?redirect=' . THIS_URL);
     }
 
     public static function isLoggedIn(): bool {

@@ -1,6 +1,7 @@
 <?php
 
-require_once('./libs/mvc/Controller.class.php');
+require_once './libs/mvc/Controller.class.php';
+require_once './libs/functions/redirect.function.php';
 
 class UsuarioController extends Controller {
 
@@ -11,7 +12,7 @@ class UsuarioController extends Controller {
 
     /** Página de login */
     public function showLogin($errors = []) {
-        if (Auth::isLoggedIn()) Redirector::redirect(ADMIN);
+        if (Auth::isLoggedIn()) redirect(ADMIN);
         
         $this->view->render('page_login', [
             'errors' => $errors 
@@ -19,7 +20,7 @@ class UsuarioController extends Controller {
     }
     /** Acción de login */
     public function login() {
-        if (Auth::isLoggedIn()) Redirector::redirect(ADMIN);
+        if (Auth::isLoggedIn()) redirect(ADMIN);
 
         $input = filter_input_array(INPUT_POST, [
             'user' => FILTER_SANITIZE_STRING,
@@ -49,7 +50,7 @@ class UsuarioController extends Controller {
     }
 
     protected function postRedirect(int $id): void {
-        Redirector::redirect(ADMIN . '/' . $this->table); // pq no hay pagina de usuario
+        redirect(ADMIN . '/' . $this->table); // pq no hay pagina de usuario
     }
     protected function deleteRedirect(int $id): void {
         if (Auth::getUserId() == $id) Auth::logout(); // por si se eliminó a el mismo

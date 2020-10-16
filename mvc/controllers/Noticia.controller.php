@@ -2,6 +2,7 @@
 
 require_once './libs/mvc/Controller.class.php';
 require_once './libs/functions/str_url_format.function.php';
+require_once './libs/functions/redirect.function.php';
 // require_once './libs/paginator/Paginator.class.php';
 
 require_once './mvc/models/Seccion.model.php';
@@ -37,11 +38,9 @@ class NoticiaController extends Controller {
             $this->validateId($id);
             $nombreNoticia = $this->model->get('titulo', $id);
             $nombreFormat = str_url_format($nombreNoticia);
-            Redirector::redirect(NOTICIA . "/$id/$nombreFormat");
+            redirect(NOTICIA . "/$id/$nombreFormat");
         }
-        catch (Exception $e) {
-            $this->view->renderError($e);
-        }
+        catch (Exception $e) { $this->view->renderError($e); }
     }
     public function showNoticia($params) {
         $id = $params[ ':ID' ];
@@ -60,9 +59,7 @@ class NoticiaController extends Controller {
                 'noticia' => $noticia
             ]);
         }
-        catch (Exception $e) {
-            $this->view->renderError($e);
-        }
+        catch (Exception $e) { $this->view->renderError($e); }
     }
 
     /** Resultados del buscador del nav */
@@ -84,7 +81,7 @@ class NoticiaController extends Controller {
                 'query' => $searchQuery
             ]);
         }
-        else Redirector::redirect(HOME);
+        else redirect(HOME);
     }
 
     public function getFormParams(): array {

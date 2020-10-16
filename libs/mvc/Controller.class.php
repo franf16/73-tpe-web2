@@ -3,7 +3,7 @@
 require_once './libs/mvc/View.class.php';
 require_once './libs/mvc/Model.class.php';
 require_once './libs/auth/Auth.class.php';
-require_once './libs/redirector/Redirector.class.php';
+require_once './libs/functions/redirect.function.php';
 
 abstract class Controller {
 
@@ -37,9 +37,7 @@ abstract class Controller {
                 $this->validateId($id);
                 $element = $this->model->getElementById($id);
             } 
-            catch (Exception $e) {
-                $this->view->renderError($e);
-            }
+            catch (Exception $e) { $this->view->renderError($e); }
         }
 
         $this->view->render('page_admin-element', array_merge([
@@ -55,20 +53,15 @@ abstract class Controller {
 
         $id = $params[ ':ID' ] ?? null;
         if ($id) {
-            try {
-                $this->validateId($id);
-            } 
-            catch (Exception $e) {
-                $this->view->renderError($e);
-            }
+            try { $this->validateId($id); } 
+            catch (Exception $e) { $this->view->renderError($e); }
         }
 
         $params[ 'element' ] = $data = $this->filterInput(INPUT_POST, $this->model->getParamsDefinition());
         $params[ 'errors' ] = $errors = $this->checkRequiredInputs($data, $this->model->getParamsRequired());
         
         if (empty($errors)) {
-            $result = $id ? 
-                $this->model->editElement($id, $data) : 
+            $result = $id ? $this->model->editElement($id, $data) : 
                 $this->model->addElement($data);
             if ($result[ 'ok' ]) $this->postRedirect($result[ 'id' ] ?? $id);
             else $params[ 'errors' ][] = $result[ 'error' ];
@@ -77,7 +70,7 @@ abstract class Controller {
         $this->showElementForm($params); // vuelve a cargar el form con errores
     }
     protected function postRedirect(int $id): void {
-        Redirector::redirect($this->table . '/' . $id);
+        redirect($this->table . '/' . $id);
     }
 
     public function deleteElement($params) {
@@ -88,12 +81,10 @@ abstract class Controller {
             $result[ 'ok' ] ? $this->deleteRedirect($params[ ':ID' ]) :
                 $this->view->renderError(new Exception($result[ 'error' ]));
         }
-        catch (Exception $e) {
-            $this->view->renderError($e);
-        }
+        catch (Exception $e) { $this->view->renderError($e); }
     }
     protected function deleteRedirect(int $id): void {
-        Redirector::redirect('admin/' . $this->table);
+        redirect('admin/' . $this->table);
     }
 
     /** CONTROL DATOS */

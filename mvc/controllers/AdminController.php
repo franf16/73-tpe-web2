@@ -38,9 +38,7 @@ class AdminController {
                 $params = getFilterParams($this->{$table});
                 $elements = $this->{$table}->getElements($params);
             }
-            catch (Exception $e) {
-                $this->view->renderError($e);
-            }
+            catch (Exception $e) { $this->view->renderError($e); }
         } 
         $this->view->render('page_admin-panel', [
             'table' => $table,

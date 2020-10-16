@@ -22,7 +22,6 @@ class View {
         $this->assign('error', $e->getMessage());
         $this->display('page_error');
         die();
-        // die("<p><strong>Error: </strong>{$e->getMessage()}</p>");
     }
 
     private function assign(string $name, $var): void {

@@ -2,6 +2,7 @@
 
 require_once './libs/mvc/Controller.class.php';
 require_once './libs/functions/str_url_format.function.php';
+require_once './libs/functions/redirect.function.php';
 
 require_once './mvc/models/Noticia.model.php';
 require_once './mvc/models/Seccion.model.php';
@@ -31,11 +32,9 @@ class SeccionController extends Controller {
             $nombreSeccion = $this->model->get('nombre', $id);
             $nombreFormat = str_url_format($nombreSeccion);
             // header("Location: " . SECCION . "/$id/$nombreFormat");
-            Redirector::redirect(SECCION . "/$id/$nombreFormat");
+            redirect(SECCION . "/$id/$nombreFormat");
         }
-        catch (Exception $e) {
-            $this->view->renderError($e);
-        }
+        catch (Exception $e) { $this->view->renderError($e); }
     }
     /** Página de una sección con sus noticias ordenadas por más vistas */
     public function showSeccion($params) {
@@ -53,8 +52,6 @@ class SeccionController extends Controller {
                 'noticias' => $noticias
             ]);
         }
-        catch (Exception $e) {
-            $this->view->renderError($e);
-        }
+        catch (Exception $e) { $this->view->renderError($e); }
     }
 }
