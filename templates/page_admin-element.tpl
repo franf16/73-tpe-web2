@@ -1,10 +1,12 @@
 {* Página con el formulario para agregar/editar un elemento *}
-{include file="templates/headers.tpl" title={(isset($element.id)) ? "Editar $table {$element.id}" : "Agregar $table"}}
+{assign var="action" value=(isset($element.id)) ? "editar" : "agregar"}
+{include file="templates/headers.tpl" title="{ucfirst($action)} {$table}"}
 
 <body>
 
-{include file="templates/admin/admin_header.tpl" selected='elementForm'}
+{include "./admin/admin_header.tpl" selected=$action}
+{include "./admin/admin_panel-nav.tpl" selected=$action}
 
-{include file="templates/admin/admin_element.tpl" table=$table}
+{include "./admin/admin_element.tpl" table=$table}
 
-{include file="templates/footer.tpl"}
+{include "templates/footer.tpl"}

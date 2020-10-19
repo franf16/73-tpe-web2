@@ -49,7 +49,7 @@ nav > a,
 nav > button:not(:last-child) { margin-right: var(--padding-sm); }
 .nav { 
 	display: flex;
-	padding: var(--padding-sm) 0;
+	padding: var(--padding-sm) var(--padding);
 }
 .page-nav {
 	justify-content: space-between;
@@ -260,6 +260,8 @@ form div > select { /*no funciona :not(input[type="submit"])*/
 .justify-center { justify-content: center; }
 .justify-right { justify-content: flex-end; }
 .space-between { justify-content: space-between ;}
+
+.text-center { text-align: center; }
 
 .padding { padding: var(--padding); }
 .padding-left { padding-left: var(--padding); }

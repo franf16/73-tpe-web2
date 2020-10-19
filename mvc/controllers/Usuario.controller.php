@@ -2,13 +2,20 @@
 
 require_once './libs/mvc/Controller.class.php';
 require_once './libs/functions/redirect.function.php';
+require_once './libs/paginator/Paginator.class.php';
+
+require_once './mvc/models/Usuario.model.php';
 
 class UsuarioController extends Controller {
 
     public function __construct() {
-        require_once('./mvc/models/Usuario.model.php');
         parent::__construct('usuario', new UsuarioModel);
     }
+
+    // public function showUsuarios() {
+    //     $usuarios = new Paginator('usuarios', 10, $this->model);
+    //     $usuarios->render('page_usuarios', $this->view);
+    // }
 
     /** Página de login */
     public function showLogin($errors = []) {

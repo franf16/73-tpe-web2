@@ -16,7 +16,7 @@
     {/foreach}
 </ul>
 
-{* {include './paginator.tpl'} *}
+{* {include './components/paginator.tpl'} *}
 
 {include file="templates/footer.tpl"}
 

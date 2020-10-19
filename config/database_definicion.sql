@@ -54,14 +54,12 @@ AS
         noticia.descripcion,
         noticia.texto,
         noticia.fecha,
-        -- DATE(noticia.fecha) as date,
         noticia.id_seccion,
         noticia.visualizaciones,
         seccion.nombre as seccion
     FROM noticia
     INNER JOIN seccion 
         ON noticia.id_seccion = seccion.id;
-    -- ORDER BY fecha DESC;
 
 CREATE VIEW noticia_preview 
 AS
@@ -70,13 +68,11 @@ AS
         noticia.titulo,
         noticia.descripcion,
         noticia.fecha,
-        -- DATE(noticia.fecha) as date,
         noticia.id_seccion,
         seccion.nombre as seccion,
         noticia.visualizaciones
     FROM noticia
     INNER JOIN seccion 
         ON noticia.id_seccion = seccion.id;
-    -- ORDER BY fecha DESC;
 
 COMMIT;

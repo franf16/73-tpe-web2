@@ -3,6 +3,7 @@
 require_once './libs/db/Database.class.php';
 
 abstract class Model {
+    // $query->debugDumpParams();
 
     protected PDO $db;
     protected string $table;
@@ -17,13 +18,25 @@ abstract class Model {
      * Definición de los parámetros de la tabla insertados desde el formuario
      * @return Array en formato filter_input_array() definition (https://www.php.net/manual/en/function.filter-input-array.php)
      */
-    abstract public function getParamsDefinition(): array;
+    public function getParamsDefinition(): array {
+        $params = [];
+        foreach ($this->getColumns() as $column => $_) {
+            $params[$column] = FILTER_DEFAULT;
+        }
+        return $params;
+    }
 
     /**
      * Columnas requeridas para agregar un elemento 
      * @return Array [ 'col1', 'col2', ... ]
      */
-    abstract public function getParamsRequired(): array;
+    public function getParamsRequired(): array {
+        $params = [];
+        foreach ($this->getColumns() as $column => $required) {
+            if ($required) $params[] = $column;
+        }
+        return $params;
+    }
 
     /** SETTERS */
     protected function setDefaultView(string $view) {
@@ -47,6 +60,17 @@ abstract class Model {
     }
 
     /** GETTERS */
+
+    public function getColumns() {
+        $query = $this->db->prepare("desc {$this->table}");
+        $query->execute();
+        $headers = $query->fetch(PDO::FETCH_ASSOC);
+        $columns = [];
+        foreach ($query->fetchAll(PDO::FETCH_ASSOC) as $column_desc) {
+            $columns[$column_desc['Field']] = $column_desc['Null'] === "YES" ? false : true; // YES = no requerida (puede ser null)
+        }
+        return $columns;
+    }
 
     public function get(string $column, int $id) {
         $query = $this->db->prepare(
@@ -150,17 +174,15 @@ abstract class Model {
     public function editElement(int $id, array $data) {
         $params = [];
         $values = implode(',', array_map(function($v, $k) use (&$params) {
-            if ($v === NULL) return "$k = DEFAULT";
+            if ($v === NULL) return "`$k` = DEFAULT";
             $params[] = $v;
-            return "$k = ?";
+            return "`$k` = ?";
         }, array_values($data), array_keys($data)));
-        // var_dump($values);
-        // die();
-        $query = $this->db->prepare(
+        $queryStmt = 
             "UPDATE {$this->table} 
              SET $values
-             WHERE id = ?"
-        );
+             WHERE id = ?";
+        $query = $this->db->prepare($queryStmt);
         $query->execute([ ...$params, $id ]);
         $error = $query->errorInfo();
 

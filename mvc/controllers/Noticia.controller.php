@@ -48,10 +48,10 @@ class NoticiaController extends Controller {
             $this->validateId($id);
             $noticia = $this->model->getElementById($id);
 
-            Auth::startSession(); // Si la noticia no fue ya visualizada en la sesión, agrega una visualización.
-            if (!isset($_SESSION[ 'noticias_vistas' ]) || !in_array($id, $_SESSION[ 'noticias_vistas' ])) {
-                if (!isset($_SESSION[ 'noticias_vistas'])) $_SESSION[ 'noticias_vistas' ] = [];
-                array_push($_SESSION[ 'noticias_vistas' ], $id);
+            // Si la noticia no fue ya visualizada en la sesión, agrega una visualización.
+            $noticiasVistas = & Auth::get('noticias_vistas') ?? Auth::set('noticias_vistas', []);
+            if (!in_array($id, $noticiasVistas)) {
+                array_push($noticiasVistas, $id);
                 $this->model->addVisualizacion($id);
             }
 

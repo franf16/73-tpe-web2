@@ -4,8 +4,6 @@
 		+ definir $element (elemento a administrar)
 *}
 <section>
-	<h1>{(isset($element.id)) ? 'Editar' : 'Agregar'} {$table}</h1>
-
 	{if isset($errors)}
 	    <ul class="error">
 	        {foreach from=$errors item=error}
@@ -14,5 +12,9 @@
 	    </ul>
 	{/if}
 
-	{include file="templates/{$table}/{$table}_form.tpl" element=$element}
+	{if file_exists("templates/{$table}/{$table}_form.tpl")}
+		{include file="templates/{$table}/{$table}_form.tpl" element=$element}
+	{else}
+		{include file="./admin_form.tpl" keys=array_keys($element)}
+	{/if}
 </section>

@@ -44,7 +44,4 @@
             <button type="submit" name="asc" value=1 title="Ascendente" class="btn-arrowup{if !empty($smarty.get.order) && isset($smarty.get.asc)} selected{/if}"></button>
         </div>
     {/if}
-    <button title="Reset" class="btn-reset">
-        <a href="{ADMIN}/{$table}"></a>
-    </button>
 </form>

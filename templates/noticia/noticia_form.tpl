@@ -5,6 +5,13 @@
     {assign var="id_seccion" value=filter_input(INPUT_GET, 'id_seccion', FILTER_VALIDATE_INT) scope=local}
 {/if}
 <form action="noticia{if isset($element.id)}/{$element.id}{/if}" method="POST">
+    
+    {if isset($element.id)} {* ¿abstraer formulario y aca cargar solo los campos? *}
+        <h1>Editar {$table} <i>{$element.titulo}</i></h1>     
+    {else}
+        <h1>Agregar {$table}</h1>
+    {/if}
+    
     <div>
         <label for="titulo">Titulo *</label>
         <textarea name="titulo" cols="75" rows="2" maxlength="255">{if isset($element.titulo)}{$element.titulo}{/if}</textarea>

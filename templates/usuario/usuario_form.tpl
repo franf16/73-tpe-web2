@@ -1,4 +1,11 @@
 <form action="usuario{if isset($element.id)}/{$element.id}{/if}" method="POST">
+
+    {if isset($element.id)} {* ¿abstraer formulario y aca cargar solo los campos? *}
+        <h1>Editar {$table} <i>{$element.username}</i></h1>     
+    {else}
+        <h1>Agregar {$table}</h1>
+    {/if}
+
     <div>
         <label for="username">Username *</label>
         <input type="text" name="username" maxlength="32" {if isset($element.username)}value="{$element.username}"{/if}>
