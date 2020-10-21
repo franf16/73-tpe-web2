@@ -43,7 +43,7 @@ abstract class Controller {
         $this->view->render('page_admin-element', array_merge([
             'table' => $this->table,
             'element' => $element,
-            'keys' => array_keys($this->model->getParamsDefinition())
+            'keys' => array_keys($element ?? $this->model->getParamsDefinition())
         ], $extraParams));
     }
     public function getFormParams(): array { return []; }
