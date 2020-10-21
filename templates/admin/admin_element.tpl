@@ -15,6 +15,6 @@
 	{if file_exists("templates/{$table}/{$table}_form.tpl")}
 		{include file="templates/{$table}/{$table}_form.tpl" element=$element}
 	{else}
-		{include file="./admin_form.tpl" keys=array_keys($element)}
+		{include file="./admin_form.tpl" keys=$keys}
 	{/if}
 </section>
