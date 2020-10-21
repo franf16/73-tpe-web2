@@ -1,8 +1,8 @@
 START TRANSACTION;
 
-CREATE DATABASE IF NOT EXISTS tpe DEFAULT CHARACTER SET latin1 COLLATE latin1_swedish_ci;
+CREATE DATABASE IF NOT EXISTS db_73 DEFAULT CHARACTER SET latin1 COLLATE latin1_swedish_ci;
 
-USE tpe;
+USE db_73;
 
 --
 -- Tabla `usuario`
@@ -77,7 +77,7 @@ AS
 
 
 --
--- Tabla `noticia`
+-- Tabla `comentario`
 --
 CREATE TABLE IF NOT EXISTS comentario (
     id int(11) NOT NULL AUTO_INCREMENT,
@@ -110,8 +110,5 @@ AS
     FROM comentario
     INNER JOIN usuario 
         ON comentario.id_usuario = usuario.id;
-
-INSERT INTO comentario (texto, id_usuario, id_noticia) VALUES
-('Muy buena', 1, 9);
 
 COMMIT;
