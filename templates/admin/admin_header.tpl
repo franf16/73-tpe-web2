@@ -16,4 +16,7 @@
     <button {if $table == 'usuario'}class="selected"{/if}>
         <a {if $table != 'usuario'}href="admin/usuario"{/if}>Administrar usuarios</a>
     </button>
+    <button {if $table == 'comentario'}class="selected"{/if}>
+        <a {if $table != 'comentario'}href="admin/comentario"{/if}>Administrar comentarios</a>
+    </button>
 </nav>

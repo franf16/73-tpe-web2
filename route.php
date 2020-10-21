@@ -4,6 +4,7 @@ require_once './libs/router/Router.class.php';
 require_once './mvc/controllers/Noticia.controller.php';
 require_once './mvc/controllers/Seccion.controller.php';
 require_once './mvc/controllers/Usuario.controller.php';
+require_once './mvc/controllers/Comentario.controller.php';
 require_once './mvc/controllers/AdminController.php';
 
 define('BASE_URL', "//{$_SERVER['SERVER_NAME']}:{$_SERVER['SERVER_PORT']}" . dirname($_SERVER['PHP_SELF']) . '/');
@@ -52,6 +53,12 @@ $router->addRoute('usuario',                'POST', 'UsuarioController',    'pos
 $router->addRoute('editar/usuario/:ID',     'GET',  'UsuarioController',    'showElementForm');
 $router->addRoute('usuario/:ID',            'POST', 'UsuarioController',    'postElement');
 $router->addRoute('eliminar/usuario/:ID',   'GET',  'UsuarioController',    'deleteElement');
+
+$router->addRoute('agregar/comentario',     'GET',  'ComentarioController', 'showElementForm');
+$router->addRoute('comentario',             'POST', 'ComentarioController', 'postElement');
+$router->addRoute('editar/comentario/:ID',  'GET',  'ComentarioController', 'showElementForm');
+$router->addRoute('comentario/:ID',         'POST', 'ComentarioController', 'postElement');
+$router->addRoute('eliminar/comentario/:ID','GET',  'ComentarioController', 'deleteElement');
 
 $router->addRoute('admin',                  'GET',  'AdminController',      'showPanel');
 $router->addRoute('admin/:TABLE',           'GET',  'AdminController',      'showPanel');

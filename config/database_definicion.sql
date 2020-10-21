@@ -75,4 +75,43 @@ AS
     INNER JOIN seccion 
         ON noticia.id_seccion = seccion.id;
 
+
+--
+-- Tabla `noticia`
+--
+CREATE TABLE IF NOT EXISTS comentario (
+    id int(11) NOT NULL AUTO_INCREMENT,
+    texto text DEFAULT NULL,
+    fecha datetime DEFAULT CURRENT_TIMESTAMP,
+    id_usuario int(11) NOT NULL,
+    id_noticia int(11) NOT NULL,
+    PRIMARY KEY (id),
+    KEY (id_usuario),
+    FOREIGN KEY (id_usuario)
+    REFERENCES usuario(id)
+        ON UPDATE CASCADE
+        ON DELETE CASCADE,
+    KEY (id_noticia),
+    FOREIGN KEY (id_noticia)
+    REFERENCES noticia(id)
+        ON UPDATE CASCADE
+        ON DELETE CASCADE
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+CREATE VIEW comentario_view 
+AS
+    SELECT
+        comentario.id,
+        comentario.texto,
+        comentario.fecha,
+        comentario.id_usuario,
+        usuario.username as username,
+        comentario.id_noticia as id_noticia
+    FROM comentario
+    INNER JOIN usuario 
+        ON comentario.id_usuario = usuario.id;
+
+INSERT INTO comentario (texto, id_usuario, id_noticia) VALUES
+('Muy buena', 1, 9);
+
 COMMIT;

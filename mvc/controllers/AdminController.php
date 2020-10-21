@@ -6,7 +6,10 @@ require_once './libs/paginator/Paginator.class.php';
 require_once './libs/mvc/View.class.php';
 require_once './libs/mvc/Model.class.php';
 
+require_once './mvc/models/Noticia.model.php';
+require_once './mvc/models/Seccion.model.php';
 require_once './mvc/models/Usuario.model.php';
+require_once './mvc/models/Comentario.model.php';
 
 class AdminController {
 
@@ -14,6 +17,7 @@ class AdminController {
     private NoticiaModel $noticia;
     private SeccionModel $seccion;
     private UsuarioModel $usuario;
+    private ComentarioModel $comentario;
 
     public function __construct() {
         $this->view = new View;
@@ -22,6 +26,7 @@ class AdminController {
         $this->noticia = new NoticiaModel;
         $this->seccion = new SeccionModel;
         $this->usuario = new UsuarioModel;
+        $this->comentario = new ComentarioModel;
     }
 
     /**

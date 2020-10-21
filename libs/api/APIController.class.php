@@ -21,6 +21,6 @@ class APIController {
 
     public function get($params = []) {
         $elements = $this->model->getElements();
-        return $this->view->response($elements, 200);
+        $this->view->response($elements, 200);
     }
 }

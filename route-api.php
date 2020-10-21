@@ -2,6 +2,7 @@
 
 require_once './libs/router/Router.class.php';
 require_once './api/Usuario.api.controller.php';
+require_once './api/Comentario.api.controller.php';
 
 define('BASE_URL', "//{$_SERVER['SERVER_NAME']}:{$_SERVER['SERVER_PORT']}" . dirname($_SERVER['PHP_SELF']) . '/');
 define('LOGIN', 'login');
@@ -14,7 +15,8 @@ $router = new Router();
 
 // $router->setDefaultRoute('UsuarioController', 'showLogin');
 
-$router->addRoute('usuarios', 'GET', 'UsuarioAPIController', 'GET');
+// $router->addRoute('usuarios', 'GET', 'UsuarioAPIController', 'GET');
+$router->addRoute('comentarios/:ID_NOTICIA', 'GET', 'ComentarioAPIController', 'get');
 
 // route 
 $router->route($_GET[ 'resource' ], $_SERVER[ 'REQUEST_METHOD' ]);
